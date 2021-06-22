@@ -43,7 +43,7 @@ namespace Shopping_Cart
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-
+            app.UseCors();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

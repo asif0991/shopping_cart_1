@@ -13,6 +13,7 @@ export const setAllProductAction = (payload) => {
 
 export const getAllProductAction = () => {
     return (dispatch, getState) => {
+        debugger;
         let promise = getAllProductsApi();
         promise.then(res => {
             debugger;
