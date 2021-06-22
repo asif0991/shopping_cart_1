@@ -8,6 +8,6 @@ namespace Shopping_Cart.Repository
 {
     public interface IUserRepository : IRepository<User>
     {
-        
+        User AuthenticateUserProfile(string userName,string password);
     }
 }

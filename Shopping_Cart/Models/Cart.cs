@@ -8,7 +8,10 @@ namespace Shopping_Cart.Models
     public partial class Cart
     {
         public int Id { get; set; }
-        public string UserId { get; set; }
+        public int? UserId { get; set; }
         public string CartDetails { get; set; }
+        public bool? IsActive { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

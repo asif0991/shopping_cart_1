@@ -7,8 +7,7 @@ namespace Shopping_Cart.Repository
 {
     interface IUnitOfWork : IDisposable
     {
-        IUserRepository GetUsers();
-
+        
         IProductRepository Products { get; }
         ICategoryRepository Categories { get; }
         ICartRepository Carts { get; }

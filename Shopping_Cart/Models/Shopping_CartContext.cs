@@ -18,8 +18,7 @@ namespace Shopping_Cart.Models
         }
 
         public virtual DbSet<Cart> Carts { get; set; }
-        public virtual DbSet<Categoy> Categoys { get; set; }
-        public virtual DbSet<Department> Departments { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
@@ -46,17 +45,19 @@ namespace Shopping_Cart.Models
                     .IsUnicode(false)
                     .HasColumnName("Cart_Details");
 
-                entity.Property(e => e.UserId)
-                    .HasMaxLength(10)
-                    .IsUnicode(false)
-                    .HasColumnName("User_Id");
+                entity.Property(e => e.IsActive).HasColumnName("isActive");
+
+                entity.Property(e => e.UserId).HasColumnName("User_Id");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Carts)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_User_Cart");
             });
 
-            modelBuilder.Entity<Categoy>(entity =>
+            modelBuilder.Entity<Category>(entity =>
             {
-                entity.ToTable("Categoy");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.ToTable("Category");
 
                 entity.Property(e => e.IsActive).HasColumnName("isActive");
 
@@ -65,24 +66,9 @@ namespace Shopping_Cart.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Department>(entity =>
-            {
-                entity.ToTable("Department");
-
-                entity.Property(e => e.DeptManager)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.DeptName)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-            });
-
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.ToTable("Product");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Description).IsUnicode(false);
 
@@ -94,17 +80,17 @@ namespace Shopping_Cart.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ProductCat)
-                    .HasMaxLength(10)
-                    .IsUnicode(false)
-                    .HasColumnName("Product_Cat");
+                entity.Property(e => e.ProductCat).HasColumnName("Product_Cat");
+
+                entity.HasOne(d => d.ProductCatNavigation)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.ProductCat)
+                    .HasConstraintName("FK_Product_Category");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("User");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Address).IsUnicode(false);
 
@@ -119,6 +105,14 @@ namespace Shopping_Cart.Models
                     .IsFixedLength(true);
 
                 entity.Property(e => e.Name)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Password)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UserName)
                     .HasMaxLength(50)
                     .IsUnicode(false);
             });

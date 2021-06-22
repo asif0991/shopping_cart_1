@@ -5,10 +5,17 @@ using System.Collections.Generic;
 
 namespace Shopping_Cart.Models
 {
-    public partial class Categoy
+    public partial class Category
     {
+        public Category()
+        {
+            Products = new HashSet<Product>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public bool? IsActive { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

@@ -11,12 +11,12 @@ namespace Shopping_Cart.Repository
     {
 
         protected readonly Shopping_CartContext Context;
-        private Shopping_CartContext context;
+        //private Shopping_CartContext Context;
 
        
         public Repository(Shopping_CartContext context)
         {
-            this.context = context;
+            this.Context = context;
         }
 
         public void Add(TEntity entity)

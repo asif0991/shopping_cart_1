@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shopping_Cart.Repository
 {
-    public interface ICategoryRepository : IRepository<Categoy>
+    public interface ICategoryRepository : IRepository<Category>
     {
     }
 }

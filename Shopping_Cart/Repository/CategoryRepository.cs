@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Shopping_Cart.Repository
 {
-    public class CategoryRepository : Repository<Categoy>, ICategoryRepository
+    public class CategoryRepository : Repository<Category>, ICategoryRepository
     {
         public CategoryRepository(Shopping_CartContext context) : base(context)
         {

@@ -38,9 +38,7 @@ namespace Shopping_Cart.Repository
             _context.Dispose();
         }
 
-        public IUserRepository GetUsers()
-        {
-            throw new NotImplementedException();
-        }
+      
+       
     }
 }

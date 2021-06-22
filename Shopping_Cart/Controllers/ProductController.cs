@@ -17,11 +17,25 @@ namespace Shopping_Cart.Controllers
         {
             _repo = new UnitOfWork(context);
         }
+        [HttpGet]
         public IActionResult Index()
         {
             //List<Product> prod = 
             IEnumerable<User> allUsers = _repo.Users.GetAll();
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Login(string userName, string password)
+        {
+            // var userName = Request.Query["userName"];
+            // string password = Request.Query["password"];
+
+            
+            User userFound = _repo.Users.AuthenticateUserProfile(userName, password);
+
+            return Json(userFound);
+
         }
     }
 }
