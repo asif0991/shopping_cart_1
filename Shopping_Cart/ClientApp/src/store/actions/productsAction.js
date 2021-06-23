@@ -1,4 +1,4 @@
-import {getAllProductsApi, getUserProfile, checkUserApi,updateCartApi} from "../../api/Api";
+import {getAllProductsApi, getUserProfile, checkUserApi, updateCartApi} from "../../api/Api";
 
 //Action Types
 export const SET_ALL_PRODUCTS = "SET_ALL_PRODUCTS";
@@ -6,6 +6,7 @@ export const SET_USER_INFO = "SET_USER_INFO";
 export const SET_ALL_PRODUCT = "SET_ALL_PRODUCT";
 export const SET_IS_LOADER = "SET_IS_LOADER";
 export const UPDATE_CART = "UPDATE_CART";
+export const UPDATE_TOTAL_CART_PRICE = "UPDATE_TOTAL_CART_PRICE";
 //Actions
 
 export const setAllProductAction = (payload) => {
@@ -26,6 +27,10 @@ export const setIsLoading = (payload) => {
 
 export const setUpdateCart = (payload) => {
     return {type: UPDATE_CART, payload}
+}
+
+export const setUpdateCartTotal = (payload) => {
+    return {type: UPDATE_TOTAL_CART_PRICE, payload}
 }
 //Action Creators
 
@@ -70,19 +75,19 @@ export const setLoginAction = (uName, pwd) => {
     }
 }
 
-
 export const updateCartAction = (prod) => {
     return (dispatch, getState) => {
         dispatch(setIsLoading(true))
         debugger;
-        let id = getState().products.userProfile.id;
-
-        let promise = updateCartApi(id, prod);
-        promise.then(res => {
-            debugger;
-            dispatch(setLoggedInUSerInfo(res.data))
-            dispatch(getAllProductAction())
-        })
+        let carts = getState().products.cart;
+        if (carts == undefined) 
+            carts = [];
+        
+        carts.push(prod);
+        dispatch(setUpdateCart(carts))
+        dispatch(getAllProductAction())
+        // let promise = updateCartApi(id, prod); promise.then(res => {     debugger;
+        //  dispatch(setUpdateCart(res.data))     dispatch(getAllProductAction()) })
 
     }
 }

@@ -4,15 +4,13 @@ import ProductsContainer from '../products/productsContainer';
 import CartContainer from '../cart/CartContainer';
 import Layout from '../Layout';
 import {Container, Row, Col} from 'reactstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {updateCartAction} from '../../store/actions/productsAction';
 
 const LayoutContainer = (props) => {
 
-    const dispatch = useDispatch();
-    const addToCart = (product) => {
-        dispatch(updateCartAction(product));
-    }
+    const Cart = useSelector(state => state.products.cart)
+
 
     return (
         <Container>
@@ -20,8 +18,8 @@ const LayoutContainer = (props) => {
                 <Col><Header/></Col>
             </Row>
             <Row>
-                <Col sm="10"><ProductsContainer addToCart={addToCart}/></Col>
-                <Col sm="2"><CartContainer/></Col>
+                <Col sm="10"><ProductsContainer /></Col>
+                <Col sm="2"><CartContainer Cart= {Cart}/></Col>
             </Row>
         </Container>
     )

@@ -72,26 +72,27 @@ namespace Shopping_Cart.Controllers
         }
 
         [HttpGet]
-        public bool UpdateCart(int id, Cart _cart)
+        public ActionResult UpdateCart(int id, Cart _cart)
         {
-            bool isSuccess = false;
+            Cart cartResponse = new Cart();
             Cart cart = _repo.Carts.Get(id);
 
-            if(cart != null && cart.Id > 0)
+            if (cart != null && cart.Id > 0)
             {
                 _repo.Carts.Add(_cart);
                 _repo.Complete();
-                isSuccess = true;
+               
             }
-            else if(cart.CartDetails != null)
+            else if (cart != null && cart.CartDetails != null)
             {
                 Cart _details = new Cart(); ;
                 _details.Id = cart.Id;
                 _details.CartDetails = cart.CartDetails;
                 _repo.Complete();
-                isSuccess = true;
+                
             }
-            return isSuccess;
+            cartResponse = _repo.Carts.Get(id);
+            return Json(cartResponse);
         }
     }
 }
