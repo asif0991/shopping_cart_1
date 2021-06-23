@@ -1,7 +1,10 @@
-import {SET_ALL_PRODUCTS} from "../actions/productsAction";
+import {SET_ALL_PRODUCT, SET_ALL_PRODUCTS, SET_USER_INFO, SET_IS_LOADER, UPDATE_CART} from "../actions/productsAction";
 
 export const defaultState = {
-    products: ""
+    products: null,
+    userProfile: null,
+    isLoading: true,
+    cart: null
 }
 
 export const ProductsReducer = (state = defaultState, action) => {
@@ -14,6 +17,27 @@ export const ProductsReducer = (state = defaultState, action) => {
             return {
                 ...state,
                 products: action.payload
+            }
+        case SET_USER_INFO:
+            return {
+                ...state,
+                userProfile: action.payload,
+                cart: action.payload.cartDetails
+            }
+        case SET_ALL_PRODUCT:
+            return {
+                ...state,
+                products: action.payload
+            }
+        case SET_IS_LOADER:
+            return {
+                ...state,
+                isLoading: action.payload
+            }
+        case UPDATE_CART:
+            return {
+                ...state,
+                cart: [...action.payload]
             }
         default:
             return state;

@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shopping_Cart.Models;
 using Shopping_Cart.Repository;
+using System;
 
 namespace Shopping_Cart
 {
@@ -24,7 +25,9 @@ namespace Shopping_Cart
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(2);
+            });
             services.AddOptions();
             services.AddControllersWithViews();
             services.AddDbContext<Shopping_CartContext>(options =>
@@ -48,7 +51,7 @@ namespace Shopping_Cart
             {
                 app.UseExceptionHandler("/Error");
             }
-
+            app.UseSession();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseCors();

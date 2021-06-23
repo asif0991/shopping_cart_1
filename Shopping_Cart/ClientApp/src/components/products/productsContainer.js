@@ -1,17 +1,24 @@
 import React from 'react'
+import {useSelector} from 'react-redux'
 
-const ProductsContainer = () => {
+const ProductsContainer = (props) => {
+
+    const Products = useSelector(state => state.products.products)
+    debugger
     return (
-        <div>
-            <div className="grid-container col-sm-12">
-                <div>1</div>
-                <div>2</div>
-                <div>3</div>
-                <div>4</div>
-                <div>5</div>
-                <div>6</div>
-             
-            </div>
+        <div className="grid-container">
+            {Products && Products.map(item => {
+                return (
+                    <div className="">
+                        <span>{item.name}</span>
+                        <br/>
+                        <img style={{width:"50px", height:"50px"}} src="https://www.edigitalagency.com.au/wp-content/uploads/new-instagram-logo-png-transparent.png"/>
+                        <button onClick={props.addToCart(item)}>Add to Cart</button>
+                    </div>
+                )
+            })
+}
+
         </div>
     )
 }

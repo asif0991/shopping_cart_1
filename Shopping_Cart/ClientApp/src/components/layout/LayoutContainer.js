@@ -2,22 +2,29 @@ import React from 'react'
 import Header from '../header/Header';
 import ProductsContainer from '../products/productsContainer';
 import CartContainer from '../cart/CartContainer';
+import Layout from '../Layout';
+import {Container, Row, Col} from 'reactstrap';
+import { useDispatch } from 'react-redux';
+import {updateCartAction} from '../../store/actions/productsAction';
 
 const LayoutContainer = (props) => {
 
+    const dispatch = useDispatch();
+    const addToCart = (product) => {
+        dispatch(updateCartAction(product));
+    }
+
     return (
-        <div className="row">
-            <div className="col-sm-12">
-                <div className="row"><Header/></div>
-                <div className="row">
-                    <div className="col-md-10"><ProductsContainer/></div>
-                    <div className="col-md-2" style={{marginTop:"10px"}}><CartContainer/></div>
-                </div>
-            </div>
-        </div>
-
+        <Container>
+            <Row>
+                <Col><Header/></Col>
+            </Row>
+            <Row>
+                <Col sm="10"><ProductsContainer addToCart={addToCart}/></Col>
+                <Col sm="2"><CartContainer/></Col>
+            </Row>
+        </Container>
     )
-
 }
 
 export default LayoutContainer;

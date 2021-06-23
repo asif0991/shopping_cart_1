@@ -23,6 +23,7 @@ namespace Shopping_Cart.Repository
             {
                 user = DBContext.Users.Find(userFound[0].Id);
             }
+           
             return user;
         }
 

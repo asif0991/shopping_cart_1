@@ -9,7 +9,7 @@ import {createStore, applyMiddleware} from 'redux';
 import rootReducer from './rootReducer';
 import { Provider } from 'react-redux';
 import {AppContainer} from 'react-hot-loader';
-import { getAllProductAction } from './store/actions/productsAction';
+import { setCheckUserAction } from './store/actions/productsAction';
 
 const middleware = () => {
   if (process.env.NODE_ENV !== 'production') {
@@ -29,7 +29,7 @@ ReactDOM.render(
  </Provider>
   , document.getElementById('root'));
 
-  store.dispatch(getAllProductAction())
+  store.dispatch(setCheckUserAction())
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls. Learn
 // more about service workers: https://bit.ly/CRA-PWA
